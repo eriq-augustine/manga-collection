@@ -34,9 +34,9 @@ CREATE TABLE LookupAttemptsAuthors (
 
 CREATE TABLE Volumes (
    id INT PRIMARY KEY AUTO_INCREMENT,
-   name VARCHAR(256),
    series INT REFERENCES Series(id),
    language VARCHAR(32),
+   country VARCHAR(32),
    seriesOrdinal INT NOT NULL DEFAULT 1,
    pages INT,
    publishedDate VARCHAR(32),
