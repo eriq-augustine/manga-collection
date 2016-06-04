@@ -34,6 +34,23 @@ def getText(node)
    return text
 end
 
+LANG_REPLACEMENT = {
+   # Countries
+   '日本' => 'JPN',
+   'アメリカ合衆国' => 'USA',
+   'アメリカ' => 'USA',
+   'フランス' => 'FRA',
+   # Languages
+   '日本語' => 'JPN',
+   '英語' => 'ENG',
+   'フランス語' => 'FRA',
+}
+
+def langCountryReplacement(text)
+   LANG_REPLACEMENT.each{|key, val| text.gsub!(/\b#{key}\b/i, val)}
+   return text
+end
+
 def intOrNull(val)
    if (val == nil)
       return "NULL"
