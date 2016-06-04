@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS Volumes;
-DROP TABLE IF EXISTS VolumeIdentifiers;
 DROP TABLE IF EXISTS LookupAttemptsAuthors;
 DROP TABLE IF EXISTS LookupAttemptsTitles;
 DROP TABLE IF EXISTS LookupAttempts;
@@ -8,6 +7,7 @@ CREATE TABLE LookupAttempts (
    id INT PRIMARY KEY AUTO_INCREMENT,
    informationSource VARCHAR(256) NOT NULL,
    identifier VARCHAR(32) NOT NULL,
+   identifierFormat VARCHAR(32) NOT NULL,
    time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    success BOOLEAN NOT NULL,
    -- Potential data
@@ -35,17 +35,12 @@ CREATE TABLE LookupAttemptsAuthors (
 CREATE TABLE Volumes (
    id INT PRIMARY KEY AUTO_INCREMENT,
    series INT REFERENCES Series(id),
+   isbn10 VARCHAR(10),
+   isbn13 VARCHAR(13),
    language VARCHAR(32),
    country VARCHAR(32),
-   seriesOrdinal INT NOT NULL DEFAULT 1,
+   seriesOrdinal INT,
    pages INT,
    publishedDate VARCHAR(32),
-   lookupAttempt INT NOT NULL REFERENCES LookupAttemts(id)
-);
-
-CREATE TABLE VolumeIdentifiers (
-   id INT PRIMARY KEY AUTO_INCREMENT,
-   value VARCHAR(32) NOT NULL,
-   format ENUM('ISBN10', 'ISBN13'),
-   volume INT NOT NULL REFERENCES Volumes(id)
+   lookupAttempt INT NOT NULL UNIQUE REFERENCES LookupAttemts(id)
 );

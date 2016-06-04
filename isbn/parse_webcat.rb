@@ -122,13 +122,13 @@ def cleanData(data)
 
    # language of origin (言語)
    if (data.has_key?('言語'))
-      cleanData['originLang'] = getText(data['言語'])
+      cleanData['originLang'] = langCountryReplacement(getText(data['言語']).gsub("\n", ', '))
    end
    debug("Finished Clean: language of origin")
 
    # country of origin (出版国)
    if (data.has_key?('出版国'))
-      cleanData['originCountry'] = getText(data['出版国'])
+      cleanData['originCountry'] = langCountryReplacement(getText(data['出版国']).gsub("\n", ', '))
    end
    debug("Finished Clean: country of origin")
 
@@ -230,12 +230,12 @@ puts ";"
 # Volumes
 puts "
    INSERT INTO LookupAttempts
-      (id, informationSource, identifier, success, language, country, seriesOrdinal, pages, isbn10, isbn13, publishedDate)
+      (id, informationSource, identifier, identifierFormat, success, language, country, seriesOrdinal, pages, isbn10, isbn13, publishedDate)
    VALUES
 "
 
 volumes.sort().each_with_index{|(key, volume), i|
-   puts "      (#{ids[key]}, 'webcat', #{key}, TRUE, #{stringOrNull(volume['originLang'])}, #{stringOrNull(volume['originCountry'])}, #{intOrNull(volume['orderInSeries'])}, #{intOrNull(volume['pageCount'])}, #{stringOrNull(volume['isbn10'])}, #{stringOrNull(volume['isbn13'])}, #{stringOrNull(volume['publishedDate'])})#{i == volumes.size() - 1 ? ';' : ','}"
+   puts "      (#{ids[key]}, 'webcat', #{key}, 'EAN_13', TRUE, #{stringOrNull(volume['originLang'])}, #{stringOrNull(volume['originCountry'])}, #{intOrNull(volume['orderInSeries'])}, #{intOrNull(volume['pageCount'])}, #{stringOrNull(volume['isbn10'])}, #{stringOrNull(volume['isbn13'])}, #{stringOrNull(volume['publishedDate'])})#{i == volumes.size() - 1 ? ';' : ','}"
 }
 
 # titles
