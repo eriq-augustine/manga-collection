@@ -37,10 +37,12 @@ end
 LANG_REPLACEMENT = {
    # Countries
    '日本' => 'JPN',
+   'ja' => 'JPN',
    'アメリカ合衆国' => 'USA',
    'アメリカ' => 'USA',
    'フランス' => 'FRA',
    # Languages
+   'jpn' => 'JPN',
    '日本語' => 'JPN',
    '英語' => 'ENG',
    'フランス語' => 'FRA',

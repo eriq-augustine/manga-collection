@@ -108,7 +108,7 @@ def cleanData(data)
 
       if (cleanData['isbn'].length() == 10)
          cleanData['isbn10'] = cleanData['isbn']
-      elsif (cleanData['isbn'].length() == 10)
+      elsif (cleanData['isbn'].length() == 13)
          cleanData['isbn13'] = cleanData['isbn']
       end
    end
